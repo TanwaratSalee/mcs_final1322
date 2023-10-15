@@ -8,23 +8,26 @@ class WelcomeFrist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/BG_Welcom2.png'),
+              image: AssetImage('assets/images/BG_Welcome1.png'),
               fit: BoxFit.cover,
             ),
           ),
           child: Column(
             children: [
-              Spacer(flex: 1), // จัดการพื้นที่ในบริเวณบนของ Column
-              Column(
+              Spacer(flex: 1),
+              const Column(
                 children: [
                   Text(
                     'Experience the ease of\ndiscovering fine attire',
                     style: TextStyle(
-                        fontSize: 32, fontWeight: FontWeight.bold, height: 1.5),
+                        fontSize: 34, 
+                        fontWeight: FontWeight.bold, 
+                        height: 1.4),
                     textAlign: TextAlign.center,
                   ),
+                  SizedBox(height: 15.0),
                   Text(
                     'Discover ensembles here that are\ncrafted to elevate your appearance',
                     style: TextStyle(
@@ -41,10 +44,19 @@ class WelcomeFrist extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
+                    width: 15.0,
+                    height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  SizedBox(width: 5.0),
+                  Container(
                     width: 10.0,
                     height: 10.0,
                     decoration: BoxDecoration(
-                      color: Colors.grey[500],
+                      color: Colors.grey[600],
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -53,16 +65,7 @@ class WelcomeFrist extends StatelessWidget {
                     width: 10.0,
                     height: 10.0,
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  SizedBox(width: 5.0),
-                  Container(
-                    width: 10.0,
-                    height: 10.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: Colors.grey[600],
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -85,7 +88,7 @@ class WelcomeFrist extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 65.0), // ใส่ padding ล่าง 10 หน่วยจากขอบด้านล่าง
+              SizedBox(height: 65.0),
             ],
           )),
     );

@@ -10,7 +10,7 @@ class WelcomeSecond extends StatelessWidget {
       body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/BG_Welcom2.png'),
+              image: AssetImage('assets/images/BG_Welcome2.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -25,10 +25,11 @@ class WelcomeSecond extends StatelessWidget {
                         fontSize: 32, fontWeight: FontWeight.bold, height: 1.5),
                     textAlign: TextAlign.center,
                   ),
+                  SizedBox(height: 15.0),
                   Text(
                     'Delight in the curated clothing service\nwe have prepared, drawing from a variety\nof esteemed brands, exclusively for you',
                     style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.normal,
                         height: 1.5,
                         color: Colors.white),
@@ -44,8 +45,17 @@ class WelcomeSecond extends StatelessWidget {
                     width: 10.0,
                     height: 10.0,
                     decoration: BoxDecoration(
-                      color: Colors.grey[500],
+                      color: Colors.grey[600],
                       shape: BoxShape.circle,
+                    ),
+                  ),
+                  SizedBox(width: 5.0),
+                  Container(
+                    width: 15.0,
+                    height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   SizedBox(width: 5.0),
@@ -53,16 +63,7 @@ class WelcomeSecond extends StatelessWidget {
                     width: 10.0,
                     height: 10.0,
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  SizedBox(width: 5.0),
-                  Container(
-                    width: 10.0,
-                    height: 10.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: Colors.grey[600],
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -72,8 +73,7 @@ class WelcomeSecond extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => WelcomeThird()),
+                    context,MaterialPageRoute(builder: (context) => WelcomeThird()),
                   );
                 },
                 child: Text('Next'),
