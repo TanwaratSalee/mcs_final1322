@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mcs_final1322/Intro/Login.dart';
 import 'package:mcs_final1322/model/users.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
-// InformationUser
+String? _password; //ตรวจสอบpasswordว่าเหมือนกันมั้ย
 
 class UserSignup extends StatefulWidget {
   const UserSignup({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _UserSignupState extends State<UserSignup> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/BG_LoginRegister.jpg'),
                 fit: BoxFit.cover,
@@ -31,12 +32,12 @@ class _UserSignupState extends State<UserSignup> {
             child: Center(
               child: Container(
                 width: 330.0,
-                height: 590.0,
+                height: 630.0,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16.0),
                   boxShadow: [
-                    BoxShadow(
+                    const BoxShadow(
                       color: Colors.black12,
                       blurRadius: 15.0,
                       spreadRadius: 10.0,
@@ -50,7 +51,7 @@ class _UserSignupState extends State<UserSignup> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Signup',
                           style: TextStyle(
                             fontSize: 34,
@@ -60,26 +61,37 @@ class _UserSignupState extends State<UserSignup> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         TextFormField(
+                          validator: MultiValidator([
+                            RequiredValidator(
+                                errorText: "Username is required"),
+                            PatternValidator(r'^[a-zA-Z0-9]+$',
+                                errorText: "Enter a valid user address")
+                          ]),
                           onSaved: (String? username) {
                             users.username = username!;
                           },
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
-                            border: UnderlineInputBorder(
+                            border: const UnderlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
                             labelText: 'Username',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               fontSize: 14.0,
                             ),
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: const Icon(Icons.person),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         TextFormField(
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: "Email is required"),
+                            EmailValidator(
+                                errorText: "Enter a valid email address")
+                          ]),
                           onSaved: (String? email) {
                             users.email = email!;
                           },
@@ -87,61 +99,85 @@ class _UserSignupState extends State<UserSignup> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
-                            border: UnderlineInputBorder(
+                            border: const UnderlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
                             labelText: 'Email',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               fontSize: 14.0,
                             ),
-                            prefixIcon: Icon(Icons.email),
+                            prefixIcon: const Icon(Icons.email),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         TextFormField(
+                          validator: MultiValidator([
+                            RequiredValidator(
+                                errorText: "Password is required"),
+                            PatternValidator(
+                              r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$',
+                              errorText: 'Password Requirements:\n'
+                                  '• More than 8 characters\n'
+                                  '• Include uppercase letters\n'
+                                  '• Include lowercase letters\n'
+                                  '• Include numbers',
+                            ),
+                          ]),
+
                           onSaved: (String? password) {
                             users.password = password!;
+                            _password = password;
                           },
                           obscureText: true, //ปิดรหัสไม่ให้เห็นว่าพิมอะไร
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
-                            border: UnderlineInputBorder(
+                            border: const UnderlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
                             labelText: 'Password',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               fontSize: 14.0,
                             ),
-                            prefixIcon: Icon(Icons.lock),
+                            prefixIcon: const Icon(Icons.lock),
                           ),
                         ),
-                        SizedBox(height: 15),
-                        TextFormField(
-                          onSaved: (String? confirmpassword) {
-                            users.confirmpassword = confirmpassword!;
-                          },
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide.none,
-                            ),
-                            labelText: 'Confirm password',
-                            labelStyle: TextStyle(
-                              fontSize: 14.0,
-                            ),
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                        ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
+                        // TextFormField(
+                        //   validator: (String? value) {
+                        //     if (value != _password) {
+                        //       return 'Passwords do not match';
+                        //     }
+                        //     return null;
+                        //   },
+                        //   onSaved: (String? confirmpassword) {
+                        //     users.confirmpassword = confirmpassword!;
+                        //   },
+                        //   obscureText: true,
+                        //   decoration: InputDecoration(
+                        //     filled: true,
+                        //     fillColor: Colors.grey[200],
+                        //     border: const UnderlineInputBorder(
+                        //       borderSide: BorderSide.none,
+                        //     ),
+                        //     labelText: 'Confirm password',
+                        //     labelStyle: const TextStyle(
+                        //       fontSize: 14.0,
+                        //     ),
+                        //     prefixIcon: const Icon(Icons.lock),
+                        //   ),
+                        // ),
+                        const SizedBox(height: 15),
                         ElevatedButton(
                           onPressed: () {
-                            formKey.currentState!.save();
-                            print("username = ${users.username} email = ${users.email} password = ${users.password} confirmpassword = ${users.confirmpassword}");
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              print(
+                                  "username = ${users.username} email = ${users.email} password = ${users.password} confirmpassword = ${users.confirmpassword}");
+                              formKey.currentState?.reset();
+                            }
                           },
-                          child: Text(
+                          child: const Text(
                             'Create Account',
                             style: TextStyle(
                               fontSize: 16.0,
@@ -152,15 +188,15 @@ class _UserSignupState extends State<UserSignup> {
                           style: ElevatedButton.styleFrom(
                             primary: Colors.teal,
                             onPrimary: Colors.white,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 80, vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Row(
+                        const SizedBox(height: 20),
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Expanded(
@@ -170,8 +206,7 @@ class _UserSignupState extends State<UserSignup> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text("Or Register with"),
                             ),
                             Expanded(
@@ -182,16 +217,16 @@ class _UserSignupState extends State<UserSignup> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             ConstrainedBox(
-                              constraints: BoxConstraints.tightFor(
+                              constraints: const BoxConstraints.tightFor(
                                   width: 81, height: 43),
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Icon(Icons.facebook,
+                                child: const Icon(Icons.facebook,
                                     color: Colors.blue, size: 30),
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -201,19 +236,20 @@ class _UserSignupState extends State<UserSignup> {
                                       Colors.transparent),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
-                                      side: BorderSide(color: Colors.grey),
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
                                   padding: MaterialStateProperty.all(
-                                    EdgeInsets.symmetric(
+                                    const EdgeInsets.symmetric(
                                         vertical: 6.5, horizontal: 25.5),
                                   ),
                                 ),
                               ),
                             ),
                             ConstrainedBox(
-                              constraints: BoxConstraints.tightFor(
+                              constraints: const BoxConstraints.tightFor(
                                   width: 81, height: 43),
                               child: ElevatedButton(
                                 onPressed: () {},
@@ -231,23 +267,24 @@ class _UserSignupState extends State<UserSignup> {
                                       Colors.transparent),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
-                                      side: BorderSide(color: Colors.grey),
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
                                   padding: MaterialStateProperty.all(
-                                    EdgeInsets.symmetric(
+                                    const EdgeInsets.symmetric(
                                         vertical: 6.5, horizontal: 25.5),
                                   ),
                                 ),
                               ),
                             ),
                             ConstrainedBox(
-                              constraints: BoxConstraints.tightFor(
+                              constraints: const BoxConstraints.tightFor(
                                   width: 81, height: 43),
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Icon(Icons.apple,
+                                child: const Icon(Icons.apple,
                                     color: Colors.black, size: 30),
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -257,12 +294,13 @@ class _UserSignupState extends State<UserSignup> {
                                       Colors.transparent),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
-                                      side: BorderSide(color: Colors.grey),
+                                      side:
+                                          const BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
                                   padding: MaterialStateProperty.all(
-                                    EdgeInsets.symmetric(
+                                    const EdgeInsets.symmetric(
                                         vertical: 6.5, horizontal: 25.5),
                                   ),
                                 ),
@@ -284,7 +322,7 @@ class _UserSignupState extends State<UserSignup> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Already have an account? ',
                   style: TextStyle(
                     fontSize: 18,
@@ -295,10 +333,11 @@ class _UserSignupState extends State<UserSignup> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => UserLogin()),
+                      MaterialPageRoute(
+                          builder: (context) => const UserLogin()),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Login Now',
                     style: TextStyle(
                       fontSize: 18,
